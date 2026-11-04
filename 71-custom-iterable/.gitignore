@@ -1,0 +1,17 @@
+# Cartelle di compilazione di Gradle e Java
+.gradle/
+build/
+bin/
+
+# File di configurazione degli IDE (IntelliJ, Eclipse, VS Code)
+.idea/
+*.iml
+.settings/
+.classpath
+.project
+.vscode/
+
+# File di sistema e log
+*.log
+.DS_Store
+Thumbs.db
