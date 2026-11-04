@@ -1,17 +1,14 @@
-# Cartelle di compilazione di Gradle e Java
+# hidden files
+.idea
 .gradle/
-build/
-bin/
-
-# File di configurazione degli IDE (IntelliJ, Eclipse, VS Code)
-.idea/
-*.iml
-.settings/
-.classpath
-.project
 .vscode/
+*.iml
 
-# File di sistema e log
-*.log
-.DS_Store
-Thumbs.db
+# output folders
+bin/
+build/
+
+# files ignored by extension
+*.class
+*.DS_Store
+deleteme/
