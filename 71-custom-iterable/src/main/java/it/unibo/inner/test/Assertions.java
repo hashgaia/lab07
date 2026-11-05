@@ -1,7 +1,6 @@
 package it.unibo.inner.test;
 
-import java.util.ArrayList;
-import java.util.Collection;
+//delete unused import as warning says
 import java.util.Objects;
 
 /**
@@ -44,7 +43,7 @@ public final class Assertions {
 
     private static long iterableSize(Iterable<?> iter) {
         var counter = 0L;
-        for (var elem : iter) {
+        for (var elem : iter) {     //warning: elem is not used but is used to scroll the for each
             counter++;
         }
         return counter;
