@@ -7,6 +7,8 @@ import java.util.Objects;
 
 import it.unibo.functional.api.Function;
 
+//attemp: this is the last version
+
 /**
  * A special utility class with methods that transform collections using {@link Function}s provided as parameters.
  */
@@ -26,10 +28,9 @@ public final class Transformers {
      *     (possibly empty) collection of other elements.
      * @param <I> input elements type
      * @param <O> output elements type
+     * 
      * @return A "flattened" list of the produced elements
      */
-
-
 
     public static <I, O> List<O> flattenTransform(
         final Iterable<? extends I> base,
@@ -54,18 +55,19 @@ public final class Transformers {
      * @param transformer the {@link Function} to apply to each element.
      * @param <I> input elements type
      * @param <O> output elements type
+     * 
      * @return A transformed list where each input element is replaced with the produced elements
      */
 
-    
     public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
         return flattenTransform(base, new Function<I, List<O>>() {
             @Override
-            public List<O> call(final I x) {
+            public List<O> call(final I x){
                 return List.of(transformer.call(x));
             }
         });
     }
+    
     /**
      * A function that takes an iterable of collections, and returns a flatten list of the elements of the inner
      * collections.
@@ -73,11 +75,13 @@ public final class Transformers {
      * {@code [1, 2, 3, 4, 5]}.
      * <b>NOTE:</b> this function is a special flattenTransform whose input is an iterable of collections,
      * and whose function simply returns each collection (identity).
-     *
-     * @param base the collections on which to operate
+     * 
      * @param <I> type of the collection elements
+     * @param base the collections on which to operate
+     * 
      * @return A flattened list with the elements of each collection in the input
      */
+
     public static <I> List<? extends I> flatten(final Iterable<? extends Collection<? extends I>> base) {
         return flattenTransform(base, new Function<Collection<? extends I>, Collection<? extends I>>() {
             @Override 
