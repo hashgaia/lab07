@@ -44,9 +44,10 @@ public final class MonthSorterNested implements MonthSorter {
 
         /**
          * Days' number getter of the month.
+         * 
          * @return the number of days of this month.
          */
-        public int getDays() {
+        private int getDays() {
             return days;
         }
 
@@ -57,7 +58,7 @@ public final class MonthSorterNested implements MonthSorter {
          * @param name the text to interpret as a month.
          * @return the matching {@link Month}.
          */
-        public static Month fromString(final String name) {
+        private static Month fromString(final String name) {
             final String search = name.toUpperCase(Locale.ROOT);
             Month match = null;
             for (final Month month : values()) {
@@ -73,11 +74,13 @@ public final class MonthSorterNested implements MonthSorter {
             }
             return match;
         }
-    }        
+    }
+
     /**
-    * Sorts months by their position during the year.
-    * 
-    */
+     * Sorts months by their position during the year.
+     * 
+     */
+
     private static final class SortByMonthOrder implements Comparator<String> {
         @Override
         public int compare(final String a, final String b) {

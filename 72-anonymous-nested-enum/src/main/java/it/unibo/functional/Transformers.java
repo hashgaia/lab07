@@ -62,12 +62,12 @@ public final class Transformers {
     public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
         return flattenTransform(base, new Function<I, List<O>>() {
             @Override
-            public List<O> call(final I x){
+            public List<O> call(final I x) {
                 return List.of(transformer.call(x));
             }
         });
     }
-    
+      
     /**
      * A function that takes an iterable of collections, and returns a flatten list of the elements of the inner
      * collections.
@@ -83,12 +83,7 @@ public final class Transformers {
      */
 
     public static <I> List<? extends I> flatten(final Iterable<? extends Collection<? extends I>> base) {
-        return flattenTransform(base, new Function<Collection<? extends I>, Collection<? extends I>>() {
-            @Override 
-            public Collection<? extends I> call(final Collection<? extends I> x) {
-                return x;
-            }
-        });
+        return flattenTransform(base, (final Collection<? extends I> x) -> x);
     }
 
     /**
@@ -129,12 +124,7 @@ public final class Transformers {
      * @return A list containing only the elements that passed the test
      */
     public static <I> List<I> reject(final Iterable<I> base, final Function<I, Boolean> test) {
-        return select(base, new Function<I, Boolean>() {
-            @Override 
-            public Boolean call(final I x) {
-                return !test.call(x);
-            }
-        });
+        return select(base, (final I x) -> !test.call(x));
     }
 
 }
