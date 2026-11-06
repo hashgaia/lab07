@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import it.unibo.functional.api.Function;
 
 /**
