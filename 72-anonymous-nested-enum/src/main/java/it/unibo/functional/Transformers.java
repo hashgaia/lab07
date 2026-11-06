@@ -1,11 +1,11 @@
 package it.unibo.functional;
 
-import it.unibo.functional.api.Function;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+
+import it.unibo.functional.api.Function;
 
 /**
  * A special utility class with methods that transform collections using {@link Function}s provided as parameters.
@@ -28,6 +28,9 @@ public final class Transformers {
      * @param <O> output elements type
      * @return A "flattened" list of the produced elements
      */
+
+
+
     public static <I, O> List<O> flattenTransform(
         final Iterable<? extends I> base,
         final Function<I, ? extends Collection<? extends O>> transformer
@@ -40,7 +43,7 @@ public final class Transformers {
     }
 
     /**
-     * A function that applies a transformation to each element of an {@link Iterable},
+     * A function that applies a transformation to e    ach element of an {@link Iterable},
      * returning a list of these transformed elements.
      * For instance, {@code [1, 2, 3, 4, 5]} could use {@code transform} to produce a list of squares by passing
      * a function that computes the square of the input, thus obtaining {@code [1, 4, 9, 16, 25]}.
@@ -53,10 +56,16 @@ public final class Transformers {
      * @param <O> output elements type
      * @return A transformed list where each input element is replaced with the produced elements
      */
-    public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
-        return null;
-    }
 
+    
+    public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
+        return flattenTransform(base, new Function<I, List<O>>() {
+            @Override
+            public List<O> call(final I x) {
+                return List.of(transformer.call(x));
+            }
+        });
+    }
     /**
      * A function that takes an iterable of collections, and returns a flatten list of the elements of the inner
      * collections.
@@ -70,7 +79,7 @@ public final class Transformers {
      * @return A flattened list with the elements of each collection in the input
      */
     public static <I> List<? extends I> flatten(final Iterable<? extends Collection<? extends I>> base) {
-        return null;
+        return ;
     }
 
     /**
@@ -87,7 +96,15 @@ public final class Transformers {
      * @return A list containing only the elements that passed the test
      */
     public static <I> List<I> select(final Iterable<I> base, final Function<I, Boolean> test) {
-        return null;
+        return flattenTransform(base, new Function<I, List<I>>() {
+            @Override 
+            public List<I> call(final I x) {
+                if (test.call(x)) {
+                    return List.of(x);
+                }
+                return List.of();
+            }
+        });
     }
 
     /**
@@ -105,4 +122,5 @@ public final class Transformers {
     public static <I> List<I> reject(final Iterable<I> base, final Function<I, Boolean> test) {
         return null;
     }
+
 }
