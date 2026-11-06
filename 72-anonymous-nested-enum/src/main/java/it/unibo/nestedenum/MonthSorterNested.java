@@ -1,5 +1,6 @@
 package it.unibo.nestedenum;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Locale;
 
@@ -81,7 +82,9 @@ public final class MonthSorterNested implements MonthSorter {
      * 
      */
 
-    private static final class SortByMonthOrder implements Comparator<String> {
+    private static final class SortByMonthOrder implements Comparator<String>, Serializable {
+        private static final long serialVersionUID = 1L;
+
         @Override
         public int compare(final String a, final String b) {
             return Month.fromString(a).compareTo(Month.fromString(b));
@@ -91,7 +94,9 @@ public final class MonthSorterNested implements MonthSorter {
      * Sorts months by their number of days.
      */
 
-    private static final class SortByDate implements Comparator<String> {
+    private static final class SortByDate implements Comparator<String>, Serializable {
+        private static final long serialVersionUID = 1L;
+
         @Override 
         public int compare(final String a, final String b) {
             return Integer.compare(Month.fromString(a).getDays(), Month.fromString(b).getDays());
