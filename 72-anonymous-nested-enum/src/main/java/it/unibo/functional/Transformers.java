@@ -7,8 +7,6 @@ import java.util.Objects;
 
 import it.unibo.functional.api.Function;
 
-//attemp: this is the last version
-
 /**
  * A special utility class with methods that transform collections using {@link Function}s provided as parameters.
  */
