@@ -1,16 +1,23 @@
 package it.unibo.bank.impl;
 
-import it.unibo.bank.api.AccountHolder;
-import it.unibo.bank.api.BankAccount;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import it.unibo.bank.api.AccountHolder;
+import it.unibo.bank.api.BankAccount;
 
 /**
  * Test class for the {@link StrictBankAccount} class.
  */
 class TestStrictBankAccount {
+
+    private static final int DEF_USER_ID = 0;
+    private static final int DEPO_OP_COUNT = 20;
+    private static final double DEF_USER_BALANCE = 0;
+    private static final double TEST_DEPO_AMOUNT = 100;
+    private static final double TEST_NEG_WITHDROW_AMOUNT = 10;
 
     // Create a new AccountHolder and a StrictBankAccount for it each time tests are executed.
     private AccountHolder mRossi;
@@ -21,7 +28,8 @@ class TestStrictBankAccount {
      */
     @BeforeEach
     public void setUp() {
-        fail("To be implemented");
+        mRossi = new AccountHolder("Mario", "Rossi", DEF_USER_ID);
+        bankAccount = new StrictBankAccount(mRossi, DEF_USER_BALANCE);
     }
 
     /**
@@ -29,7 +37,10 @@ class TestStrictBankAccount {
      */
     @Test
     public void testInitialization() {
-        fail("To be implemented");
+        assertEquals(DEF_USER_BALANCE, bankAccount.getBalance());
+        assertEquals(DEPO_OP_COUNT, bankAccount.getTransactionsCount());
+        assertEquals(mRossi, bankAccount.getAccountHolder());
+        fail("Initialization test failed");
     }
 
     /**
@@ -37,7 +48,19 @@ class TestStrictBankAccount {
      */
     @Test
     public void testManagementFees() {
-        fail("To be implemented");
+        assertEquals(0, bankAccount.getTransactionsCount());
+        for (int i = 1; i <= DEPO_OP_COUNT; i++) {
+            bankAccount.deposit(mRossi.getUserID(), TEST_DEPO_AMOUNT);
+            assertEquals(i, bankAccount.getTransactionsCount());
+            assertEquals(TEST_DEPO_AMOUNT * i + DEF_USER_BALANCE, bankAccount.getBalance());
+        }
+        bankAccount.chargeManagementFees(mRossi.getUserID());
+        assertEquals(0, bankAccount.getTransactionsCount());
+        assertEquals(
+            TEST_DEPO_AMOUNT * DEPO_OP_COUNT + DEF_USER_BALANCE - MANAGEMENT_FEE 
+            - TRANSACTION_FEE * DEPO_OP_COUNT, this.bankAccount.getBalance()
+        );
+        fail("Initialization test failed");
     }
 
     /**
